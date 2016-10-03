@@ -12,7 +12,7 @@ etc
 
 To start wikipedia_doer.rb, there needs to be one valid wikipedia article in discovered.yaml for it to start with. If you paste in
 
->- Animal
+>\- Animal
 
 that should work fine.
 
