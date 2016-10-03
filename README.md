@@ -10,4 +10,11 @@ wikipedia_doer.rb will scan through wikipedia pages and collect the links to oth
 etc
 
 
+To start wikipedia_doer.rb, there needs to be one valid wikipedia article in discovered.yaml for it to start with. If you paste in
+
+>- Animal
+
+that should work fine.
+
+
 checker.rb will read through each file and display the number of collected links.
