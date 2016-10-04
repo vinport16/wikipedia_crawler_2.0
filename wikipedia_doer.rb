@@ -67,12 +67,34 @@ def loadFile filename
 	return YAML::load_file(filename+'.yml') #Load
 end
 
-discovered = loadFile "discovered"
-to_read = loadFile "to_read"
+if File.exists?("discovered.yml") and File.exists?("to_read.yml")
+	discovered = loadFile "discovered"
+	to_read = loadFile "to_read"
+else
+	discovered = File.new("discovered.yml", "w")
+	File.new("to_read.yml", "w")
+	to_read = []
+end
 
 for count in 0...10000
-	page = to_read.delete_at(rand(to_read.length))
-	pos = discovered.place page
+	if File.zero?("to_read.yml")
+		puts"Which page would you like to scan first?"
+		print"www.en.wikipedia.org/wiki/"
+		page = gets.chomp
+		puts
+	else
+		page = to_read.delete_at(rand(to_read.length))
+	end
+
+	discovered_is_empty = false
+	if File.zero?("discovered.yml")
+		pos = true
+		discovered_is_empty = true
+		discovered = [[page,[]]]
+	else
+		pos = discovered.place page
+	end
+
 	if pos
 
 		puts
@@ -96,7 +118,11 @@ for count in 0...10000
 		links.sort!
 		links.each do |l|
 			to_read << l
-			discovered[pos][1] << l
+			if discovered_is_empty
+				discovered[0][1] << l
+			else
+				discovered[pos][1] << l
+			end
 		end
 	end
 	to_read.toFile "to_read"
